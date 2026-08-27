@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Shield icon">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+  </defs>
+  <path d="M64 8 104 22v34c0 27-16 48-40 60C40 104 24 83 24 56V22l40-14Zm-8 26v22H34v10h22v22h10V66h22V56H66V34H56Z" fill="url(#g)"/>
+</svg>

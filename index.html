@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Is This Safe?</title>
+    <meta
+      name="description"
+      content="Paste a suspicious message to see whether it looks like a phishing attempt or scam."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand" aria-label="Is This Safe brand">
+          <div class="brand-mark">S</div>
+          <div class="brand-copy">
+            <span class="brand-name">Is This Safe?</span>
+            <small>Security Analysis Engine</small>
+          </div>
+        </div>
+
+        <button class="text-button" id="howItWorksBtn" type="button">How it works</button>
+      </header>
+
+      <main class="layout">
+        <section class="hero panel">
+          <div class="hero-copy">
+            <p class="eyebrow">Threat check in seconds</p>
+            <h1>Paste any suspicious message. Know in seconds if it's a threat.</h1>
+            <p class="hero-text">
+              Scan emails, SMS, texts, and links for common scam indicators before you act.
+            </p>
+          </div>
+
+          <div class="stats-grid" aria-label="Security facts">
+            <div class="stat-card">
+              <strong>3.4B+</strong>
+              <span>phishing emails per day</span>
+            </div>
+            <div class="stat-card">
+              <strong>90%</strong>
+              <span>of breaches begin with phishing</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel input-panel">
+          <label class="input-label" for="messageInput">What do you want to check?</label>
+
+          <textarea
+            id="messageInput"
+            rows="8"
+            placeholder="Paste your message, email body, SMS, or suspicious text here..."
+            aria-label="Suspicious message"
+          ></textarea>
+
+          <div class="input-row">
+            <label for="urlInput">Optional link</label>
+            <input
+              id="urlInput"
+              type="text"
+              placeholder="https://example.com or suspicious domain"
+              aria-label="Optional URL"
+            />
+          </div>
+
+          <div class="action-row">
+            <div class="example-list" aria-label="Example messages">
+              <span>Try an example:</span>
+              <button class="example-button" type="button" data-example="bank">Bank account alert</button>
+              <button class="example-button" type="button" data-example="reward">Prize scam</button>
+              <button class="example-button" type="button" data-example="otp">OTP verification</button>
+            </div>
+
+            <button id="analyzeBtn" class="primary-button" type="button">Analyze Message</button>
+          </div>
+
+          <p id="validationMessage" class="validation-message" aria-live="polite"></p>
+        </section>
+
+        <section id="resultsPanel" class="panel results-panel hidden" aria-live="polite">
+          <div class="result-header">
+            <div class="gauge-container">
+              <svg class="gauge" viewBox="0 0 160 160" role="img" aria-label="Risk score gauge">
+                <circle class="gauge-base" cx="80" cy="80" r="60"></circle>
+                <circle id="gaugeProgress" class="gauge-progress" cx="80" cy="80" r="60"></circle>
+              </svg>
+              <div class="gauge-value">
+                <span id="riskScoreValue">0</span>
+              </div>
+            </div>
+
+            <div class="verdict-panel">
+              <span class="verdict-label">Verdict</span>
+              <div id="verdictBadge" class="verdict-badge safe">SAFE</div>
+              <p id="resultSummary">No current scan was run.</p>
+            </div>
+          </div>
+
+          <div class="result-body">
+            <div class="result-block">
+              <h3>Detected warning signs</h3>
+              <ul id="signalList" class="signal-list"></ul>
+            </div>
+
+            <div class="result-block">
+              <h3>What this suggests</h3>
+              <p id="explanationText"></p>
+            </div>
+
+            <div class="result-block">
+              <h3>Recommended actions</h3>
+              <ul id="actionsList" class="actions-list"></ul>
+            </div>
+
+            <div class="result-actions">
+              <button id="analyzeAnotherBtn" class="secondary-button" type="button">Analyze Another</button>
+              <button id="copyResultBtn" class="ghost-button" type="button">Copy Result</button>
+            </div>
+
+            <p class="engine-note">Analyzed by: Local Security Analysis Engine v1.0</p>
+          </div>
+        </section>
+
+        <aside class="panel history-panel">
+          <div class="history-header">
+            <h3>Recent Scans</h3>
+            <button id="clearHistoryBtn" type="button" class="text-button">Clear</button>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </aside>
+      </main>
+
+      <section id="aboutSection" class="panel about-panel">
+        <h2>How this works</h2>
+        <p>
+          This app uses a local, pattern-based security analysis engine to look for common scam indicators like
+          urgency language, suspicious links, impersonation attempts, request for credentials, and financial pressure.
+        </p>
+        <p>
+          The architecture is intentionally designed so a real AI provider can be swapped in later without changing the
+          interface. For critical decisions, always verify through the official channel before acting.
+        </p>
+      </section>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
