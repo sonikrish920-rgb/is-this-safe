@@ -37,6 +37,7 @@ The following checks are relevant for the live deployment:
 - recent scan history is saved in browser localStorage
 - the page remains usable on desktop and smaller screens
 
+
 ## Notes
 
 - The current runtime is entirely client-side.
