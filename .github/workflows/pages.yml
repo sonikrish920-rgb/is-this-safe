@@ -21,6 +21,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Run test suite
+        run: node --input-type=module -e "import './js/tests.js';"
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

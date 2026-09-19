@@ -80,7 +80,7 @@ export function renderResult(result) {
   resultsPanel.classList.add(`is-${verdictClasses[result.verdict].toLowerCase() === 'warning' ? 'warning' : verdictClasses[result.verdict]}`);
 
   summary.textContent = result.summary;
-  explanation.textContent = result.summary;
+  explanation.textContent = result.explanation || result.summary;
 
   signalList.innerHTML = result.signals.length
     ? result.signals
