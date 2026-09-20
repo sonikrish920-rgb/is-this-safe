@@ -323,4 +323,8 @@ if (typeof window === 'undefined') {
   console.log(`\n========== OVERALL SUMMARY ==========`);
   console.log(`Total: ${analyzerResults.total + 2} | Passed: ${totalPassed} | Failed: ${totalFailed}`);
   console.log(`Success Rate: ${((totalPassed / (analyzerResults.total + 2)) * 100).toFixed(1)}%`);
+
+  if (totalFailed > 0) {
+    process.exitCode = 1;
+  }
 }

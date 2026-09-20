@@ -52,7 +52,7 @@ Eight files were modified across the full set of sessions. No other files were c
 
 - **Deduplication fix** — Changed the deduplication guard in `extractUrlsFromText()` from `u.url === normalized` to `u === normalized`. Since the `urls` array contains plain strings, this corrects the comparison so duplicate normalized URLs are properly filtered.
 - **URL risk score cap raised** — Increased the per-URL risk score cap from 15 to 20 to allow more extreme URLs (e.g., combined TLD + shortener + HTTP + suspicious keyword) to register a higher risk contribution without exceeding a ceiling that was too conservative.
-- **Additional suspicious TLDs** — Added `.example` and `.test` to the known suspicious TLD list, covering placeholder and developer-facing domains that appear in delivery-fee and fake-notification phishing.
+- **Additional suspicious TLD** — Added `.example` to the known suspicious TLD list, covering placeholder domains that appear in delivery-fee and fake-notification phishing. Generic/test domain detection also covers `.test` domains separately.
 - **Path-keyword check** — Added detection of suspicious keywords in the URL path component (reset, verify, secure, account, login, confirm, update, suspended), contributing +2 to the risk score. This catches URLs like `accounts-google.com/verify` that are structurally deceptive.
 - **Brand-in-subdomain detection** — Added detection of known brand names appearing in subdomains of a non-brand domain (e.g., `google.sbi-banking.com`), contributing +8 to the risk score.
 - **Legitimate-brand-domain whitelist** — Added a whitelist of known real brand domains so that messages containing `amazon.com`, `google.com`, `paypal.com`, etc., are not penalised for the brand keyword appearing in their own legitimate domain.
@@ -158,7 +158,7 @@ All 20 stress cases produced the expected verdict. No accuracy percentages beyon
 
 ## 6. CI Validation
 
-GitHub Actions now executes the complete test suite as the first step of the `build` job, before artifact upload and before deployment. The workflow is in `.github/workflows/pages.yml`. The relevant step is:
+GitHub Actions now executes the complete test suite after checking out the repository, before artifact upload and before deployment. The workflow is in `.github/workflows/pages.yml`. The relevant step is:
 
 ```yaml
 - name: Run test suite
@@ -186,7 +186,7 @@ Each change was made only where directly required by the stated task. Bob identi
 
 The following issues were identified during exploration and analysis but were intentionally left unchanged because they were outside the requested implementation scope:
 
-- **Unused `urlPattern` variable** — `js/urlAnalyzer.js` declares a `urlPattern` variable on an early line that is never referenced; the actual regex used in the extraction loop is `urlRegex`. This is dead code but does not affect behaviour.
+- **Commented-out legacy `urlPattern` pattern** — `js/urlAnalyzer.js` retains a commented-out legacy `urlPattern` pattern for reference; the actual regex used in the extraction loop is `urlRegex`. This has no effect on behaviour.
 - **`hasNegation()` exported but never called** — `js/detectors.js` exports the `hasNegation()` utility function but no caller exists anywhere in the codebase. It was originally intended to provide negation-aware credential detection.
 - **`detectSuspiciousUrl()` exported but not called directly by analyzer** — `js/detectors.js` exports `detectSuspiciousUrl()` as a pass-through wrapper, but `js/analyzer.js` calls `analyzeUrl()` from `urlAnalyzer.js` directly. The exported function is not wrong, just redundant.
 - **Artificial 1-second `setTimeout` delay** — `js/app.js` wraps the synchronous `analyzeMessage()` call in a `setTimeout` of 1000 ms to simulate an asynchronous loading experience. The analysis itself completes in under 1 ms. The delay is cosmetic but misleading about the engine's actual latency.
